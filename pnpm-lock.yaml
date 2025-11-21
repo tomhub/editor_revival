@@ -300,9 +300,6 @@ importers:
       flow-runtime:
         specifier: ^0.17.0
         version: 0.17.0
-      husky:
-        specifier: ^9.1.7
-        version: 9.1.7
       identity-obj-proxy:
         specifier: ^3.0.0
         version: 3.0.0
@@ -4102,11 +4099,6 @@ packages:
   humanize-plus@1.8.2:
     resolution: {integrity: sha512-jaLeQyyzjjINGv7O9JJegjsaUcWjSj/1dcXvLEgU3pGdqCdP1PiC/uwr+saJXhTNBHZtmKnmpXyazgh+eceRxA==}
     engines: {node: '>= 0.8.0'}
-
-  husky@9.1.7:
-    resolution: {integrity: sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==}
-    engines: {node: '>=18'}
-    hasBin: true
 
   hyphenate-style-name@1.1.0:
     resolution: {integrity: sha512-WDC/ui2VVRrz3jOVi+XtjqkDjiVjTtFaAGiW37k6b+ohyQ5wYDOGkvCZa8+H0nx3gyvv0+BST9xuOgIyGQ00gw==}
@@ -13361,8 +13353,6 @@ snapshots:
       - supports-color
 
   humanize-plus@1.8.2: {}
-
-  husky@9.1.7: {}
 
   hyphenate-style-name@1.1.0: {}
 
