@@ -8,9 +8,9 @@
   "scripts": {
     "build": "concurrently \"npm run build-main\" \"npm run build-renderer\"",
     "build-dll": "echo dll skipped",
-    "build-main": "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.main.prod.js --colors",
-    "build-renderer": "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.renderer.prod.js --colors",
-    "dev": "cross-env START_HOT=1 node -r babel-register ./internals/scripts/CheckPortInUse.js && cross-env START_HOT=1 npm run start-renderer-dev",
+    "build-main": "cross-env NODE_ENV=production NODE_OPTIONS=--openssl-legacy-provider node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.main.prod.js --colors",
+    "build-renderer": "cross-env NODE_ENV=production NODE_OPTIONS=--openssl-legacy-provider node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.renderer.prod.js --colors",
+    "dev": "electron ./app --no-sandbox --disable-gpu",
     "electron-rebuild": "electron-rebuild --parallel --force --types prod,dev,optional --module-dir app",
     "flow": "flow",
     "flow-typed": "echo flow skipped",
@@ -29,18 +29,19 @@
     "package-win": "npm run build && electron-builder --win --x64 && npm run moveReleaseFiles",
     "package-win32": "npm run build && electron-builder --win --ia32",
     "package-all": "npm run cleanReleaseFolder && npm run package-linux && npm run package-win",
-    "postinstall": "echo postinstall disabled",
     "postlint-fix": "prettier --ignore-path .eslintignore --single-quote --write '**/*.js'",
     "precommit": "lint-staged",
     "prestart": "npm run build",
-    "start": "cross-env NODE_ENV=production electron --enable-transparent-visuals ./app/",
+    "start": "pnpm build && pnpm dev",
     "start-main-dev": "cross-env HOT=1 NODE_ENV=development APPIMAGE=/tmp/ electron -r babel-register --inspect=5858 ./app/main.dev.js",
     "start-renderer-dev": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack-dev-server/bin/webpack-dev-server --hot --config webpack.config.renderer.dev.js",
     "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings -r babel-register ./internals/scripts/RunTests.js",
     "test-all": "npm run lint && npm run flow && npm run build && npm run test && npm run test-e2e",
     "test-e2e": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings -r babel-register ./internals/scripts/RunTests.js e2e",
     "test-watch": "npm test -- --watch",
-    "start-linux": "yarn build && electron ./app --no-sandbox --disable-gpu"
+    "start-linux": "yarn build && electron ./app --no-sandbox --disable-gpu",
+    "rebuild": "pnpm rebuild && pnpm build",
+    "prepare": "husky"
   },
   "browserslist": "electron 1.6",
   "lint-staged": {
@@ -190,7 +191,7 @@
     "cross-spawn": "^6.0.5",
     "css-loader": "^0.28.11",
     "detect-port": "^1.2.3",
-    "electron": "^13.0.0",
+    "electron": "^28.3.0",
     "electron-builder": "^22.0.0",
     "electron-devtools-installer": "3.0.0",
     "electron-rebuild": "^2.0.0",
@@ -218,8 +219,7 @@
     "file-loader": "^1.1.11",
     "flow-bin": "^0.72.0",
     "flow-runtime": "^0.17.0",
-    "flow-typed": "echo flow skipped",
-    "husky": "^1.1.2",
+    "husky": "^9.1.7",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^23.0.0",
     "lint-staged": "^7.1.2",
@@ -254,7 +254,8 @@
     "archiver": "^5.0.2",
     "babel-plugin-prismjs": "^1.0.2",
     "bootstrap": "^4.1.1",
-    "cla-wrapper": "^0.3.0",
+    "cla-wrapper": "^0.2.6",
+    "classnames": "^2.5.1",
     "clone": "^2.1.2",
     "csvtojson": "^2.0.8",
     "devtron": "^1.4.0",
@@ -299,5 +300,5 @@
     "npm": ">=4.x",
     "yarn": ">=0.21.3"
   },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "packageManager": "pnpm@10.23.0+sha512.21c4e5698002ade97e4efe8b8b4a89a8de3c85a37919f957e7a0f30f38fbc5bbdd05980ffe29179b2fb6e6e691242e098d945d1601772cad0fef5fb6411e2a4b"
 }

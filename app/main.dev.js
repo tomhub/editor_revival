@@ -109,8 +109,9 @@ app.on('ready', async () => {
             show: false,
             icon: iconPath,
             webPreferences: {
-                enableRemoteModule: true,
-                nodeIntegration: true,
+                preload: path.join(__dirname, "preload.js"),
+                contextIsolation: true,
+                sandbox: true, // false or true, but test first
                 contextIsolation: false,
                 spellcheck: true,
                 additionalArguments: [

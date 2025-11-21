@@ -1,0 +1,9 @@
+ignoredBuiltDependencies:
+  - '@parcel/watcher'
+  - core-js
+  - ejs
+  - electron
+  - electron-chromedriver
+  - highlight.js
+  - husky
+  - lzma-native
